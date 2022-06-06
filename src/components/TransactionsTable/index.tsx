@@ -1,6 +1,25 @@
+import { useEffect, useState } from "react";
 import { Container } from "./style";
 
 export function TransactionsTable(){
+    useEffect( () => {
+    
+        loadTransactions()
+        
+        return () => {
+            console.log("Olá use effect")
+        }
+    }, [])
+
+    async function loadTransactions(){ 
+        const response = await fetch('http://localhost:3000/api/transactions')
+        const data = await response.json()
+        setTransactionsList(data)
+
+    }
+
+    const [transactionsList, setTransactionsList] = useState<any>([])
+    
     return (
         <Container>
             <table>
@@ -11,18 +30,15 @@ export function TransactionsTable(){
                     <th>Data </th>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Desenvolvimento de website</td>
-                        <td className="withdraw">R$2000.00</td>
-                        <td>Desenvolvimento</td>
-                        <td>06/06/2022</td>
+                {transactionsList.map( (transaction:any) => {
+                    return <tr key={transaction.id}>
+                        <td>{transaction.title}</td>
+                        <td className={transaction.type} >  R${transaction.amount}</td>
+                        <td>{transaction.category}</td>
+                        <td>{transaction.created_at}</td>
                     </tr>
-                    <tr>
-                        <td>Desenvolvimento de website</td>
-                        <td className="deposit">R$2000.00</td>
-                        <td>Desenvolvimento</td>
-                        <td>06/06/2022</td>
-                    </tr>
+                })}
+                  
                 </tbody>
             </table>
         </Container>
