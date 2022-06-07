@@ -25,6 +25,10 @@ export const GlobalStyle = createGlobalStyle`
     background: var(--background);
   }
 
+  button {
+    cursor: pointer;
+  }
+
   html { 
     @media (max-width: 1024px) {
       font-size: 93.75%;
@@ -44,4 +48,42 @@ export const GlobalStyle = createGlobalStyle`
     }
   }
 
+  .react-modal-overlay {
+    background: rgba(0,0,0,0.5);
+
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .react-modal-content {
+    width: 100%;
+    max-width: 576px;
+
+    background: var(--background);
+    padding: 3rem; 
+    position: relative; 
+    border-radius: .25rem;
+  }
+
+  .react-modal-close {
+    right: 1.5rem;
+    top: 1.5rem;
+    position: absolute;
+    border: 0;
+    background: transparent;
+
+    transition: filter .2s;
+
+    &:hover {
+      filter: brightness(.8)
+    }
+
+  }
 `
