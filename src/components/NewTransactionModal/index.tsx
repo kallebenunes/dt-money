@@ -6,6 +6,9 @@ import closeImg from './../../assets/close.svg'
 import { FormEvent, useState } from 'react';
 import { v4 } from 'uuid'
 import { api } from '../../api/api';
+import { useContext } from 'react';
+import { TransactionsContext } from '../../TransactionsContext';
+
 
 interface NewTransactionModalProps {
     isOpen: boolean;
@@ -20,7 +23,9 @@ export function NewTransactionModal({ isOpen, onRequestClose }:NewTransactionMod
     const [title, setTitle] = useState('')
     const [category, setCategory] = useState('')
 
-    function handleCreateNewTransaction(event: FormEvent){
+    const {transactionsList, setTransactionsList} = useContext(TransactionsContext) 
+
+    async function handleCreateNewTransaction(event: FormEvent){
         event.preventDefault()
 
         const data = {
@@ -32,9 +37,16 @@ export function NewTransactionModal({ isOpen, onRequestClose }:NewTransactionMod
             created_at: new Date().toLocaleDateString()
         }
 
-        console.log(data)
+        const res = await api.post('/transactions',data)
+        
 
-        api.post('/transactions',data)
+        setAmount(0)
+        setCategory('')
+        setTitle('')
+        setType('deposit')
+        
+        setTransactionsList([...transactionsList, res.data?.transaction])
+        
     }
 
     return (

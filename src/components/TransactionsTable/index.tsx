@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import { api } from "../../api/api";
+import { useContext } from "react";
 import { Container } from "./style";
+import { ITransactionsContext, TransactionsContext } from './../../TransactionsContext';
 
 export interface ITransaction {
     id: string, 
@@ -13,26 +13,9 @@ export interface ITransaction {
 }
 
 export function TransactionsTable(){
-    useEffect( () => {
     
-        loadTransactions()
-        
-        return () => {
-            console.log("Olá use effect")
-        }
-    }, [])
+    const {transactionsList} = useContext(TransactionsContext) as ITransactionsContext
 
-    async function loadTransactions(){ 
-        const { data } = await api.get('/transactions')
-      
-        console.log(data)
-
-        setTransactionsList(data)
-
-    }
-
-    const [transactionsList, setTransactionsList] = useState<any>([])
-    
     return (
         <Container>
             <table>
