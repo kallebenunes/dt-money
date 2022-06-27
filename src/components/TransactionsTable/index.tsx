@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { api } from "../../api/api";
 import { Container } from "./style";
 
 export function TransactionsTable(){
@@ -12,8 +13,10 @@ export function TransactionsTable(){
     }, [])
 
     async function loadTransactions(){ 
-        const response = await fetch('http://localhost:3000/api/transactions')
-        const data = await response.json()
+        const { data } = await api.get('/transactions')
+      
+        console.log(data)
+
         setTransactionsList(data)
 
     }
