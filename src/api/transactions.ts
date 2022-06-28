@@ -30,5 +30,13 @@ export const transactions = [
     type: 'withdraw',
     created_at: new Date().toLocaleDateString(),
     category: 'Desenvolvimento'
+  },
+  {
+    id: 5,
+    title: "Transaction 1",
+    amount: 300,
+    type: 'withdraw',
+    created_at: new Date().toLocaleDateString(),
+    category: 'Desenvolvimento'
   }
 ]
