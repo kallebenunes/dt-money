@@ -1,5 +1,11 @@
 import axios from 'axios'
 
+
 export const api = axios.create({
-  baseURL: 'https://localhost:3000/api'
+  baseURL: process.env.REACT_APP_API_URL 
+  ? process.env.REACT_APP_API_URL 
+  : 'https://kallebenunes.github.io/dt-money/'
 })
+
+
+
